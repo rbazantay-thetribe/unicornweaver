@@ -1,28 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { Item } from './interfaces/items.interface';
+import { Repository } from 'typeorm';
+import { Item } from './items.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
+import { UpdateResult } from 'typeorm';
 
 @Injectable()
 export class ItemsService {
+  constructor(
+    @InjectRepository(Item)
+    private itemsRepository: Repository<Item>,
+  ) {}
   findAll() {
-    return [
-      { id: 1, name: 'Item 1' },
-      { id: 2, name: 'Item 2' },
-    ];
+    return this.itemsRepository.find();
   }
 
-  findOne(id: string) {
-    return { id: id, name: 'Item 1' };
+  findOne(id: number) {
+    return this.itemsRepository.findOneBy({ id });
   }
 
-  create(item: Item) {
-    return { id: 1, name: 'Item 1', item: item };
+  create(createItemDto: CreateItemDto): Promise<Item> {
+    const item = this.itemsRepository.create(createItemDto);
+    return this.itemsRepository.save(item);
   }
 
-  update(id: string, item: Item) {
-    return { id: id, name: 'Item 1', item: item };
+  update(id: number, updateItemDto: UpdateItemDto): Promise<UpdateResult> {
+    return this.itemsRepository.update(id, updateItemDto);
   }
 
-  remove(id: string) {
-    return { id: id, name: 'Item 1', message: 'Item deleted' };
+  remove(id: number) {
+    return this.itemsRepository.delete(id);
   }
 }
