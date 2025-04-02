@@ -1,3 +1,52 @@
+# Unicorn Weaver
+
+## Architecture Hexagonale
+
+Ce projet suit les principes de l'architecture hexagonale (aussi appelée architecture en ports et adaptateurs) proposée par Alistair Cockburn.
+
+### Structure du Projet
+
+```
+src/
+├── domain/                    # Cœur métier de l'application
+│   ├── entities/             # Entités du domaine
+│   ├── value-objects/        # Objets valeur
+│   ├── repositories/         # Interfaces des repositories
+│   └── services/             # Services du domaine
+│
+├── application/              # Cas d'utilisation
+│   ├── ports/               # Ports (interfaces)
+│   │   ├── input/          # Ports d'entrée (cas d'utilisation)
+│   │   └── output/         # Ports de sortie (repositories)
+│   └── services/            # Implémentation des cas d'utilisation
+│
+├── infrastructure/           # Adaptateurs et configuration
+│   ├── persistence/         # Implémentation des repositories
+│   ├── api/                 # Contrôleurs et routes
+│   └── config/              # Configuration de l'application
+│
+└── shared/                  # Code partagé
+    ├── types/              # Types partagés
+    └── utils/              # Utilitaires
+```
+
+### Principes de l'Architecture
+
+1. **Domaine** : Contient toute la logique métier de l'application. Il est indépendant des frameworks et des technologies externes.
+
+2. **Application** : Implémente les cas d'utilisation en utilisant le domaine. Elle définit les ports (interfaces) qui permettent l'interaction avec l'extérieur.
+
+3. **Infrastructure** : Contient les adaptateurs qui implémentent les ports définis dans l'application. Elle gère les détails techniques comme la persistance, les API, etc.
+
+4. **Shared** : Contient le code partagé entre les différentes couches.
+
+### Règles
+
+- Le domaine ne doit pas dépendre de l'infrastructure
+- Les dépendances pointent toujours vers le centre (domaine)
+- L'infrastructure implémente les interfaces définies dans l'application
+- Les cas d'utilisation sont orchestrés par les services d'application
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
