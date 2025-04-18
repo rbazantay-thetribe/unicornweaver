@@ -16,6 +16,27 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "isolatedModules": true,
+    "paths": {
+      "@app/attribute": [
+        "libs/attribute/src"
+      ],
+      "@app/attribute/*": [
+        "libs/attribute/src/*"
+      ],
+      "@app/item": [
+        "libs/item/src"
+      ],
+      "@app/item/*": [
+        "libs/item/src/*"
+      ],
+      "@app/tag": [
+        "libs/tag/src"
+      ],
+      "@app/tag/*": [
+        "libs/tag/src/*"
+      ]
+    }
   }
 }

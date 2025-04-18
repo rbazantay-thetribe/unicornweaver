@@ -13,7 +13,7 @@ if (!moduleName) {
 }
 
 // Chemin où le module sera créé
-const modulePath = `modules/${moduleName}`;
+const modulePath = `domain/${moduleName}`;
 
 try {
   console.log(`\x1b[36mCréation du module '${moduleName}'...\x1b[0m`);

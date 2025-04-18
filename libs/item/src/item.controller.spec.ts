@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ItemsController } from './items.controller';
-import { ItemsService } from './items.service';
-import { Item } from './items.entity';
+import { ItemController } from './item.controller';
+import { ItemService } from './item.service';
+import { Item } from './entities/Item';
 import { UpdateResult } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 
-describe('ItemsController', () => {
-  let controller: ItemsController;
-  let service: ItemsService;
+describe('ItemController', () => {
+  let controller: ItemController;
+  let service: ItemService;
 
-  const mockItemsService: Partial<ItemsService> = {
+  const mockItemService: Partial<ItemService> = {
     create: jest.fn(
       (dto: CreateItemDto): Promise<Item> =>
         Promise.resolve({
@@ -38,17 +38,17 @@ describe('ItemsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ItemsController],
+      controllers: [ItemController],
       providers: [
         {
-          provide: ItemsService,
-          useValue: mockItemsService,
+          provide: ItemService,
+          useValue: mockItemService,
         },
       ],
     }).compile();
 
-    controller = module.get<ItemsController>(ItemsController);
-    service = module.get<ItemsService>(ItemsService);
+    controller = module.get<ItemController>(ItemController);
+    service = module.get<ItemService>(ItemService);
   });
 
   it('should be defined', () => {
